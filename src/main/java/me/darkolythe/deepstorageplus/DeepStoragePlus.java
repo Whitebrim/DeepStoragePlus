@@ -1,7 +1,5 @@
 package me.darkolythe.deepstorageplus;
 
-import me.darkolythe.customrecipeapi.APIManager;
-import me.darkolythe.customrecipeapi.CustomRecipeAPI;
 import me.darkolythe.deepstorageplus.dsu.listeners.*;
 import me.darkolythe.deepstorageplus.dsu.managers.DSUManager;
 import me.darkolythe.deepstorageplus.dsu.managers.DSUUpdateManager;
@@ -31,8 +29,8 @@ public final class DeepStoragePlus extends JavaPlugin {
     public static boolean loadpack;
     public static int maxrange;
     public static boolean packmsg;
-    public static String DSUname = ChatColor.BLUE.toString() + ChatColor.BOLD.toString() + "Deep Storage Unit";
-    public static String sortername = ChatColor.BLUE.toString() + ChatColor.BOLD.toString() + "Deep Storage Sorter";
+    public static String DSUname = ChatColor.BLUE.toString() + ChatColor.BOLD.toString() + "Глубокое Хранилище";
+    public static String sortername = ChatColor.BLUE.toString() + ChatColor.BOLD.toString() + "Распределительный узел";
 
     public static final long minTimeSinceLastSortPlayer = 500L;
     public static final long minTimeSinceLastSortHopper = 30000L;
@@ -62,12 +60,10 @@ public final class DeepStoragePlus extends JavaPlugin {
     private WirelessListener wirelesslistener;
     private IOListener iolistener;
     private StorageBreakListener storagebreakslistener;
-    private RecipeManager recipemanager;
     public DSUUpdateManager dsuupdatemanager;
     public DSUManager dsumanager;
     public SorterUpdateManager sorterUpdateManager;
     public SorterManager sorterManager;
-    public APIManager crapimanager;
     ConfigManager configmanager;
 
     public static int maxTypes = 7;
@@ -91,13 +87,11 @@ public final class DeepStoragePlus extends JavaPlugin {
         wirelesslistener = new WirelessListener(plugin);
         iolistener = new IOListener(plugin);
         storagebreakslistener = new StorageBreakListener(plugin);
-        recipemanager = new RecipeManager(plugin, itemList);
         configmanager = new ConfigManager(plugin);
         dsuupdatemanager = new DSUUpdateManager(plugin);
         dsumanager = new DSUManager(plugin);
         sorterUpdateManager = new SorterUpdateManager(plugin);
         sorterManager = new SorterManager(plugin);
-        crapimanager = CustomRecipeAPI.getManager();
 
         inventorylistener.addText();
 
@@ -114,6 +108,10 @@ public final class DeepStoragePlus extends JavaPlugin {
         Metrics metrics = new Metrics(plugin, 6221);
 
         getLogger().log(Level.INFO, (prefix + ChatColor.GREEN + "DeepStoragePlus enabled!"));
+    }
+
+    public void Reload(){
+        onEnable();
     }
 
     @Override

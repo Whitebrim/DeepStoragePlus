@@ -78,7 +78,8 @@ public class InventoryListener implements Listener {
                                     if (item != null && item.getType() == Material.WHITE_STAINED_GLASS_PANE) {
                                         event.setCancelled(true);
                                         if (cursor.hasItemMeta()) { //if putting a Storage Container in the dsu
-                                            if (cursor.getItemMeta().getDisplayName().contains(LanguageManager.getValue("storagecontainer")) && cursor.getItemMeta().isUnbreakable()) {
+                                            int model = (cursor.hasItemMeta() && cursor.getItemMeta().hasCustomModelData()) ? cursor.getItemMeta().getCustomModelData() : 0;
+                                            if (model >= 20010 && model < 20020) { // Is container
                                                 inv.setItem(event.getSlot(), cursor);
                                                 cursor.setAmount(0);
                                                 main.dsuupdatemanager.updateItems(inv, null);
@@ -160,12 +161,12 @@ public class InventoryListener implements Listener {
                                 if (item != null && item.getType() == Material.WHITE_STAINED_GLASS_PANE) {
                                     event.setCancelled(true);
                                     //if putting a link module into the sorter
-                                    if (cursor.hasItemMeta() && cursor.getItemMeta().getDisplayName().contains(LanguageManager.getValue("linkmodule")) && cursor.getItemMeta().isUnbreakable()) {
+                                    if (cursor.hasItemMeta() && cursor.getItemMeta().hasCustomModelData() && cursor.getItemMeta().getCustomModelData() == 20023) {
                                         inv.setItem(event.getSlot(), cursor);
                                         cursor.setAmount(0);
                                     }
                                 } else { //if trying to take placeholder out
-                                    if (!(cursor.hasItemMeta() && cursor.getItemMeta().getDisplayName().contains(LanguageManager.getValue("linkmodule")) && cursor.getItemMeta().isUnbreakable())) {
+                                    if (!(cursor.hasItemMeta() && cursor.getItemMeta().hasCustomModelData() && cursor.getItemMeta().getCustomModelData() == 20023)) {
                                         event.setCancelled(true);
                                     } else if (event.isShiftClick()) {
                                         event.setCancelled(true);
@@ -248,10 +249,10 @@ public class InventoryListener implements Listener {
                                         item.setItemMeta(meta);
                                     } else if (event.getClick() == ClickType.LEFT) {
                                         player.sendMessage(DeepStoragePlus.prefix + ChatColor.GRAY + LanguageManager.getValue("entername"));
-                                        player.sendMessage(ChatColor.GRAY + LanguageManager.getValue("typecancel"));
-                                        DeepStoragePlus.stashedIO.put(player.getUniqueId(), inv);
-                                        DeepStoragePlus.gettingInput.put(player.getUniqueId(), true);
-                                        player.closeInventory();
+                                        /*player.sendMessage(ChatColor.GRAY + LanguageManager.getValue("typecancel"));
+                                        //DeepStoragePlus.stashedIO.put(player.getUniqueId(), inv);
+                                        //DeepStoragePlus.gettingInput.put(player.getUniqueId(), true);
+                                        player.closeInventory();*/
                                     }
                                 } else {
                                     player.sendMessage(DeepStoragePlus.prefix + ChatColor.GRAY + LanguageManager.getValue("notowner"));
@@ -355,7 +356,7 @@ public class InventoryListener implements Listener {
     public void onAsyncChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         if (DeepStoragePlus.gettingInput.containsKey(player.getUniqueId()) && DeepStoragePlus.gettingInput.get(player.getUniqueId())) {
-            if (event.getMessage().equalsIgnoreCase("cancel")) {
+            if (event.getMessage().equalsIgnoreCase("отмена")) {
                 DeepStoragePlus.gettingInput.put(player.getUniqueId(), false);
                 DeepStoragePlus.openIOInv.put(player, true);
                 event.setCancelled(true);

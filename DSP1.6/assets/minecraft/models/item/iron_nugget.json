@@ -1,0 +1,68 @@
+{
+    "parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "item/iron_nugget"
+	},
+    "overrides": [
+		{
+            "predicate": {
+            	"custom_model_data": 20001
+            },
+            "model": "item/storage_cell_1k"
+        },
+		{
+            "predicate": {
+            	"custom_model_data": 20002
+            },
+            "model": "item/storage_cell_4k"
+        },
+		{
+            "predicate": {
+            	"custom_model_data": 20003
+            },
+            "model": "item/storage_cell_16k"
+        },
+		{
+            "predicate": {
+            	"custom_model_data": 20004
+            },
+            "model": "item/storage_cell_64k"
+        },
+		{
+            "predicate": {
+            	"custom_model_data": 20005
+            },
+            "model": "item/storage_cell_256k"
+        },
+		{
+            "predicate": {
+            	"custom_model_data": 20006
+            },
+            "model": "item/storage_cell_1024k"
+        },
+		{
+            "predicate": {
+            	"custom_model_data": 20023
+            },
+            "model": "item/receiver"
+        },
+		{
+            "predicate": {
+            	"custom_model_data": 20031
+            },
+            "model": "item/storage_container_empty"
+        },
+		{
+            "predicate": {
+            	"custom_model_data": 20032
+            },
+            "model": "item/wireless_processor"
+        },
+		{
+            "predicate": {
+            	"custom_model_data": 20033
+            },
+            "model": "item/battery"
+        }
+    ]
+}

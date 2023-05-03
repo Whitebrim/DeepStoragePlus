@@ -1,9 +1,9 @@
 package me.darkolythe.deepstorageplus.dsu.listeners;
 
 import me.darkolythe.deepstorageplus.DeepStoragePlus;
+import me.darkolythe.deepstorageplus.dsu.StorageUtils;
 import me.darkolythe.deepstorageplus.dsu.managers.DSUManager;
 import me.darkolythe.deepstorageplus.utils.LanguageManager;
-import me.darkolythe.deepstorageplus.utils.RecipeManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
@@ -45,14 +45,13 @@ public class WirelessListener implements Listener {
             if (block != null && block.getType() == Material.CHEST) {
                 if (!event.isCancelled()) {
                     Chest chest = (Chest) block.getState();
-                    if (chest.getInventory().contains(DSUManager.getDSUWall())) {
+                    if (StorageUtils.isDSU(chest.getInventory()) || StorageUtils.isSorter(chest.getInventory())) {
                         ItemStack item = player.getInventory().getItemInMainHand();
                         if (isWirelessTerminal(item)) {
-                            if (item.getItemMeta().getLore().contains(ChatColor.RED.toString() + ChatColor.BOLD.toString() + LanguageManager.getValue("unlinked"))) {
-                                event.setCancelled(true);
-                                updateTerminal(item, block.getX(), block.getY(), block.getZ(), block.getWorld());
-                                return;
-                            }
+                            event.setCancelled(true);
+                            updateTerminal(item, block.getX(), block.getY(), block.getZ(), block.getWorld());
+                            player.sendMessage(DeepStoragePlus.prefix + ChatColor.GREEN + LanguageManager.getValue("linked"));
+                            return;
                         }
                     }
                 }

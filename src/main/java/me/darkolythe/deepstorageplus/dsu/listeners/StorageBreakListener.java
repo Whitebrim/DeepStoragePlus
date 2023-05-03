@@ -79,19 +79,17 @@ public class StorageBreakListener implements Listener {
 
     private static void emptyChest(Container chest) {
         if (StorageUtils.isSorter(chest.getInventory())) {
-            chest.getInventory().addItem(ItemList.createSorterWrench());
+            chest.getWorld().dropItemNaturally(chest.getLocation(), ItemList.createSorterWrench());
         } else if (StorageUtils.isDSU(chest.getInventory())) {
-            chest.getInventory().addItem(ItemList.createStorageWrench());
+            chest.getWorld().dropItemNaturally(chest.getLocation(), ItemList.createStorageWrench());
         }
         for (int i = 0; i < chest.getInventory().getContents().length; i++) {
             ItemStack item = chest.getInventory().getItem(i);
             if (item != null) {
-                if (!(item.hasItemMeta() && (item.getType() == Material.STONE_AXE || item.getType() == Material.STONE_SHOVEL))) {
-                    chest.getInventory().setItem(i, null);
-                } else {
+                if (item.hasItemMeta() && item.getItemMeta().hasCustomModelData() && item.getItemMeta().getCustomModelData() >= 20010 && item.getItemMeta().getCustomModelData() < 20020) {
                     chest.getWorld().dropItemNaturally(chest.getLocation(), item);
-                    chest.getInventory().setItem(i, null);
                 }
+                chest.getInventory().setItem(i, null);
             }
         }
     }

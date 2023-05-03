@@ -163,7 +163,7 @@ public class DSUUpdateManager {
     private static ItemStack createItem(Material mat, Inventory inv) {
         ItemStack item = new ItemStack(mat);
         ItemMeta meta = item.getItemMeta();
-        meta.setLore(Arrays.asList(ChatColor.GRAY + "Item Count: " + DSUManager.getTotalMaterialAmount(inv, mat)));
+        meta.setLore(Arrays.asList(ChatColor.GRAY + LanguageManager.getValue("itemcount") + DSUManager.getTotalMaterialAmount(inv, mat)));
         item.setItemMeta(meta);
         return item;
     }

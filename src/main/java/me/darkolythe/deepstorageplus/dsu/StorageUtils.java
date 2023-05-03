@@ -3,6 +3,7 @@ package me.darkolythe.deepstorageplus.dsu;
 import me.darkolythe.deepstorageplus.dsu.managers.DSUManager;
 import me.darkolythe.deepstorageplus.dsu.managers.SorterManager;
 import me.darkolythe.deepstorageplus.utils.ItemList;
+import me.darkolythe.deepstorageplus.utils.LanguageManager;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -27,6 +28,9 @@ public class StorageUtils {
         if (item.getType().toString().contains("SHULKER_BOX")) {
             return false;
         }
+        if (item.getType().toString().contains("BUNDLE")) {
+            return false;
+        }
         if (item.hasItemMeta()) {
             if (item.getItemMeta().hasEnchants()) {
                 return false;
@@ -47,7 +51,7 @@ public class StorageUtils {
                 return false;
             }
             if (item.getItemMeta().hasLore()) {
-                if (item.getItemMeta().getLore().get(0).contains("Item Count: ")) {
+                if (item.getItemMeta().getLore().get(0).contains(LanguageManager.getValue("itemcount"))) {
                     if (item.getDurability() != 0) {
                         return false;
                     }
@@ -88,7 +92,7 @@ public class StorageUtils {
                 if (i.getType().equals(Material.TRIPWIRE_HOOK)
                         && i.hasItemMeta()
                         && i.getItemMeta().hasDisplayName()
-                        && i.getItemMeta().getDisplayName().equals(ChatColor.BLUE.toString() + "Lock DSU")) {
+                        && i.getItemMeta().getDisplayName().equals(ChatColor.BLUE.toString() + LanguageManager.getValue("lockdsu"))) {
                     return false;
                 }
             }

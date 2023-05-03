@@ -2,6 +2,7 @@ package me.darkolythe.deepstorageplus.io;
 
 import me.darkolythe.deepstorageplus.DeepStoragePlus;
 import me.darkolythe.deepstorageplus.utils.ItemList;
+import me.darkolythe.deepstorageplus.utils.LanguageManager;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -34,7 +35,11 @@ public class CommandHandler implements CommandExecutor {
             // give storagecell16k 6
             // give joe storagecontainer1M 2
             // give wrench
-            if (args.length == 1 && args[0].equalsIgnoreCase("items") && sender.hasPermission("deepstorageplus.give")) {
+            if (args.length == 1 && args[0].equalsIgnoreCase("reload") && sender.hasPermission("deepstorageplus.reload")) {
+                main.Reload();
+                sender.sendMessage("Config reloaded");
+            }
+            else if (args.length == 1 && args[0].equalsIgnoreCase("items") && sender.hasPermission("deepstorageplus.give")) {
                 String items = "";
                 for (String s : itemList.itemListMap.keySet()) {
                     items += ChatColor.GREEN + s + ChatColor.BLUE + ", ";

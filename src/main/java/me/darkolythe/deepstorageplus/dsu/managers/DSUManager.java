@@ -65,7 +65,7 @@ public class DSUManager {
                 ChatColor.GRAY + LanguageManager.getValue("output") + ": " + ChatColor.BLUE + LanguageManager.getValue("none"),
                 ChatColor.GRAY + LanguageManager.getValue("sortingby") + ": " + ChatColor.BLUE + LanguageManager.getValue("container"),
                 ChatColor.GRAY + LanguageManager.getValue("owner") + ": " + ChatColor.BLUE + player.getName(),
-                ChatColor.RED + LanguageManager.getValue("locked")));
+                ChatColor.GREEN + LanguageManager.getValue("unlocked")));
         settingsmeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
         settingsmeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         settingsmeta.setUnbreakable(true);
@@ -219,7 +219,8 @@ public class DSUManager {
     Update the container with the itemstack being added
      */
     public static void addDataToContainer(ItemStack container, ItemStack item) {
-        if (container.hasItemMeta() && container.getItemMeta().hasDisplayName() && container.getItemMeta().getDisplayName().contains(LanguageManager.getValue("storagecontainer"))) {
+        int model = (container.hasItemMeta() && container.getItemMeta().hasCustomModelData()) ? container.getItemMeta().getCustomModelData() : 0;
+        if (model >= 20010 && model < 20020) {
             Material mat = item.getType();
             int amount = item.getAmount();
 
@@ -393,7 +394,8 @@ public class DSUManager {
         LinkedHashSet<Material> list = new LinkedHashSet<>();
         for (int i = 0; i < 5; i++) {
             ItemStack container = dsu.getItem(8 + (9 * i));
-            if (container != null && container.getItemMeta() != null && container.getItemMeta().getDisplayName().contains(LanguageManager.getValue("storagecontainer"))) {
+            int model = (container.hasItemMeta() && container.getItemMeta().hasCustomModelData()) ? container.getItemMeta().getCustomModelData() : 0;
+            if (model >= 20010 && model < 20020) {
                 HashSet<Material> mats = DSUManager.getTypes(container.getItemMeta().getLore());
                 list.addAll(mats);
             }
@@ -404,10 +406,13 @@ public class DSUManager {
     public static boolean dsuContainsType(Inventory dsu, Material material) {
         for (int i = 0; i < 5; i++) {
             ItemStack container = dsu.getItem(8 + (9 * i));
-            if (container != null && container.getItemMeta() != null && container.getItemMeta().getDisplayName().contains(LanguageManager.getValue("storagecontainer"))) {
-                HashSet<Material> mats = DSUManager.getTypes(container.getItemMeta().getLore());
-                if (mats.contains(material)) {
-                    return true;
+            if (container != null && container.hasItemMeta() && container.getItemMeta().hasCustomModelData()){
+                int model = container.getItemMeta().getCustomModelData();
+                if (model >= 20010 && model < 20020) {
+                    HashSet<Material> mats = DSUManager.getTypes(container.getItemMeta().getLore());
+                    if (mats.contains(material)) {
+                        return true;
+                    }
                 }
             }
         }
@@ -424,7 +429,8 @@ public class DSUManager {
             if (mat != null) {
                 if (amount != amt) {
                     ItemStack container = inv.getItem(8 + (9 * i));
-                    if (container.hasItemMeta() && container.getItemMeta().hasDisplayName() && container.getItemMeta().getDisplayName().contains(LanguageManager.getValue("storagecontainer"))) {
+                    int model = (container.hasItemMeta() && container.getItemMeta().hasCustomModelData()) ? container.getItemMeta().getCustomModelData() : 0;
+                    if (model >= 20010 && model < 20020) {
                         for (int x = 2; x < DeepStoragePlus.maxTypes + 2; x++) {
                             if (getType(container.getItemMeta().getLore().get(x)) == mat) {
                                 amount = Math.min(amount + getMaterialAmount(container.getItemMeta().getLore().get(x)), amt);

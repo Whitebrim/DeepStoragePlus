@@ -86,7 +86,7 @@ public class SettingsManager {
     public static ItemStack createDSULock(Inventory LockInv) {
         ItemStack lock = new ItemStack(Material.TRIPWIRE_HOOK);
         ItemMeta lockmeta = lock.getItemMeta();
-        lockmeta.setDisplayName(ChatColor.BLUE + "Lock DSU");
+        lockmeta.setDisplayName(ChatColor.BLUE + LanguageManager.getValue("lockdsu"));
         List<String> locklore = new ArrayList<>();
         locklore.add(ChatColor.GRAY + LanguageManager.getValue("leftclicktoadd"));
         locklore.add(ChatColor.GRAY + LanguageManager.getValue("rightclicktoremove"));
