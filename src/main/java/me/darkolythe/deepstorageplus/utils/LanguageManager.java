@@ -86,6 +86,7 @@ public class LanguageManager {
         translateMap.put("itemcount", main.getConfig().getString("itemcount"));
         translateMap.put("cantlink", main.getConfig().getString("cantlink"));
         translateMap.put("lockdsu", main.getConfig().getString("lockdsu"));
+        translateMap.put("nowirelesspermission", main.getConfig().getString("nowirelesspermission"));
     }
 
     public static String getValue(String key) {
